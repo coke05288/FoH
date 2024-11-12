@@ -1,0 +1,9 @@
+server.port: 8103
+spring.application.name: pay-service
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:7000/eureka/
+    registerWithEureka: true
+    fetchRegistry: true

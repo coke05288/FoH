@@ -1,0 +1,39 @@
+server.port: 8104
+spring.application.name: inventory-service
+
+#spring:
+#  profiles.include:
+#    - aws
+#  datasource:
+#    url: jdbc:h2:~/inventory-dev
+#    driver-class-name: org.h2.Driver
+#    username: sa
+#    password:
+#  jpa:
+#    defer-datasource-initialization: true
+#    database-platform: org.hibernate.dialect.H2Dialect
+#    show-sql: false
+#    hibernate:
+#      ddl-auto: none
+#    properties:
+#      hibernate:
+#        format_sql: true
+#        use_sql_comments: true
+#  h2:
+#    console:
+#      enabled: true
+#      path: /h2-console
+#  sql:
+#    init:
+#      data-locations: classpath:sql/dummy-data.sql
+#      schema-locations: classpath:sql/schema-h2.sql
+#      mode: always
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:7000/eureka/
+    registerWithEureka: true
+    fetchRegistry: true
+
+product.service.url: "http://localhost:8080/product"

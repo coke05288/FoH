@@ -1,0 +1,10 @@
+rootProject.name = 'foh'
+
+include 'eureka-service'
+include 'gateway-service'
+
+include 'user-service'
+include 'product-service'
+include 'order-service'
+include 'pay-service'
+include 'inventory-service'

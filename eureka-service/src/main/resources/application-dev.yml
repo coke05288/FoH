@@ -1,0 +1,17 @@
+server.port: 7000
+spring.application.name: eureka-service
+
+eureka:
+  instance:
+    hostname: localhost
+    registry:
+      default-open-for-traffic-count: 1
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+    service-url:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+    region: default
+  server:
+    enable-self-preservation: true
+    renewal-percent-threshold: 0
