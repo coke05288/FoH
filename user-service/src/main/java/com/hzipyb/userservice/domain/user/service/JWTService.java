@@ -20,7 +20,7 @@ public class JWTService {
     private final PasswordEncoder passwordEncoder;
 
     @Value("${jwt.secret}")
-    private String secretkey;
+    private String secretKey;
 
     public String generateToken(User existingUser, String requestPassword){
         if(!passwordEncoder.matches(requestPassword, existingUser.getPasswordHash())){
@@ -33,7 +33,7 @@ public class JWTService {
                 .subject(existingUser.getEmail())
                 .issuedAt(new Date(currentTimeMillis))
                 .expiration(new Date(currentTimeMillis + 3600000 * 3))
-                .signWith(Keys.hmacShaKeyFor(secretkey.getBytes(StandardCharsets.UTF_8)))
+                .signWith(Keys.hmacShaKeyFor(secretKey.getBytes(StandardCharsets.UTF_8)))
                 .compact();
     }
 
@@ -56,13 +56,13 @@ public class JWTService {
                 .subject(claims.getSubject())
                 .issuedAt(new Date(currentTimeMillis))
                 .expiration(new Date(currentTimeMillis + 3600000 * 3)) // Token expires in 1 hour
-                .signWith(Keys.hmacShaKeyFor(secretkey.getBytes(StandardCharsets.UTF_8)))
+                .signWith(Keys.hmacShaKeyFor(secretKey.getBytes(StandardCharsets.UTF_8)))
                 .compact();
     }
 
     public Claims parseJwtClaims(String token){
         return Jwts.parser()
-                .verifyWith(Keys.hmacShaKeyFor(secretkey.getBytes(StandardCharsets.UTF_8)))
+                .verifyWith(Keys.hmacShaKeyFor(secretKey.getBytes(StandardCharsets.UTF_8)))
                 .build()
                 .parseSignedClaims(token)
                 .getPayload();

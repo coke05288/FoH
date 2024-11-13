@@ -1,12 +1,9 @@
 server.port: 8100
 spring.application.name: user-service
 
-jwt:
-  secret: 0o3gtP//QnYRXenWqRIlIoduoZ6+7o2tyQ4xfgdov0E
-
 spring:
   datasource:
-    url: jdbc:h2:mem:product-dev;DB_CLOSE_DELAY=-1
+    url: jdbc:h2:mem:user-dev;DB_CLOSE_DELAY=-1
     driverClassName: org.h2.Driver
     username: sa
     password:

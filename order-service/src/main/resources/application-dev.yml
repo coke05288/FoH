@@ -2,8 +2,25 @@ server.port: 8102
 spring.application.name: order-service
 
 spring:
-  profiles.include:
-    - aws
+  datasource:
+    url: jdbc:h2:~/order-dev
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  jpa:
+    defer-datasource-initialization: true
+    database-platform: org.hibernate.dialect.H2Dialect
+    show-sql: false
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        format_sql: true
+        use_sql_comments: true
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
 
 eureka:
   client:
@@ -11,4 +28,3 @@ eureka:
       defaultZone: http://localhost:7000/eureka/
     registerWithEureka: true
     fetchRegistry: true
-
