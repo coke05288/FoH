@@ -32,7 +32,7 @@ spring:
         - id: pay_route
           uri: lb://pay-service
           predicates:
-            - Path=/api/v1/pay/**
+            - Path=/api/v1/payment/**
             - Method=POST,GET,OPTION
           filters:
             - RewritePath=/api/v1/pay/(?<remaining>.*), /pay/${remaining}
