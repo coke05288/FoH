@@ -15,17 +15,8 @@ public class OrderController {
 
     private final OrderService orderService;
 
-    @GetMapping("/{orderId}")
-    public ResponseEntity<Order> orderProductsById(
-            @PathVariable Long orderId){
-
-        Order order = orderService.getOrder(orderId);
-
-        return ResponseEntity.ok(order);
-    }
-
     @PostMapping("/create")
-    public ResponseEntity<Order> orderProductsById(
+    public ResponseEntity<Order> createOrder(
             @RequestBody OrderRequestDTO orderRequestDTO) throws JsonProcessingException {
 
         Order order = orderService.createOrder(orderRequestDTO.getUserId(), orderRequestDTO.getProductOrders());
@@ -33,4 +24,12 @@ public class OrderController {
         return ResponseEntity.ok(order);
     }
 
+    @GetMapping("/{orderId}")
+    public ResponseEntity<Order> getOrderById(
+            @PathVariable Long orderId){
+
+        Order order = orderService.getOrderById(orderId);
+
+        return ResponseEntity.ok(order);
+    }
 }

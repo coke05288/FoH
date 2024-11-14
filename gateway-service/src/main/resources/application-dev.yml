@@ -33,9 +33,9 @@ spring:
           uri: lb://pay-service
           predicates:
             - Path=/api/v1/payment/**
-            - Method=POST,GET,OPTION
+            - Method=POST,GET,PUT,OPTION
           filters:
-            - RewritePath=/api/v1/pay/(?<remaining>.*), /pay/${remaining}
+            - RewritePath=/api/v1/payment/(?<remaining>.*), /payment/${remaining}
 
         - id: inventory_route
           uri: lb://inventory-service
