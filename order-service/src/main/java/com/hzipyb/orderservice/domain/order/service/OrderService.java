@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.hzipyb.orderservice.config.SqsMessageSender;
 import com.hzipyb.orderservice.domain.order.client.ProductClient;
+import com.hzipyb.orderservice.domain.order.dto.OrderChangeDTO;
 import com.hzipyb.orderservice.domain.order.dto.ProductDTO;
 import com.hzipyb.orderservice.domain.order.dto.ProductOrderDTO;
 import com.hzipyb.orderservice.domain.order.entity.Order;
@@ -76,5 +77,14 @@ public class OrderService {
                     return orderItem;
                 })
                 .collect(Collectors.toList());
+    }
+
+    public Order updateOrderById(Long orderId, OrderChangeDTO orderChangeDTO){
+        Order order = orderRepository.findById(orderId)
+                .orElseThrow(() -> new OrderNotFoundException("Order not found with ID: " + orderId));
+
+        order.setStatus(OrderStatus.valueOf(orderChangeDTO.getStatus()));
+
+        return orderRepository.save(order);
     }
 }

@@ -25,7 +25,7 @@ spring:
           uri: lb://order-service
           predicates:
             - Path=/api/v1/order/**
-            - Method=POST,GET,OPTION
+            - Method=POST,GET,PUT,OPTION
           filters:
             - RewritePath=/api/v1/order/(?<remaining>.*), /order/${remaining}
 
