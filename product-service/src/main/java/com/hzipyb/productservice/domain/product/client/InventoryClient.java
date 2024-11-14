@@ -17,8 +17,8 @@ public class InventoryClient {
         this.inventoryServiceUrl = inventoryServiceUrl;
     }
 
-    public Integer getStockQuantityByProductId(String productId) {
-        String url = inventoryServiceUrl + "/product/" + productId.replaceFirst("PRODUCT#PROD", "");
+    public Integer getStockQuantityByProductId(Long productId) {
+        String url = inventoryServiceUrl + "/product/" + productId.toString();
         InventoryDTO inventoryDTO = restTemplate.getForObject(url, InventoryDTO.class);
 
         return inventoryDTO != null ? inventoryDTO.getStockQuantity() : 0;

@@ -16,12 +16,12 @@ public class ProductRepository {
     private final DynamoDbTable<Product> productDynamoDbTable;
 
     // READ : 상품 상세 조회
-    public Optional<Product> getProductById(String productId) {
+    public Optional<Product> getProductById(Long productId) {
 
         String partitionPrefix = "PRODUCT#";
         String sortPrefix = "#CATEGORY#";
 
-        String partitionKey = partitionPrefix + "PROD" + productId;
+        String partitionKey = partitionPrefix + productId.toString();
 
         Product product = productDynamoDbTable
                 .query(r -> r.queryConditional(
@@ -37,12 +37,12 @@ public class ProductRepository {
 
     // READ : 상품 카테고리별 리스트 조회
     // SK-PK-index GSI 사용
-    public Optional<List<Product>> getProductsByCategoryId(String categoryId) {
+    public Optional<List<Product>> getProductsByCategoryId(Long categoryId) {
 
         String partitionPrefix = "#CATEGORY#";
         String sortPrefix = "PRODUCT#";
 
-        String partitionKey = partitionPrefix + categoryId;
+        String partitionKey = partitionPrefix + categoryId.toString();
 
         List<Product> products = productDynamoDbTable
                 .index("SK-PK-index")
@@ -53,18 +53,6 @@ public class ProductRepository {
                 .stream()
                 .flatMap(page -> page.items().stream())
                 .collect(Collectors.toList());
-
-        for(Product product : products){
-            System.out.println("Product ID: " + product.getPK());
-            System.out.println("Category ID: " + product.getSK());
-            System.out.println("Entity Type: " + product.getEntityType());
-            System.out.println("Name: " + product.getName());
-            System.out.println("Description: " + product.getDescription());
-            System.out.println("Price: " + product.getPrice());
-            System.out.println("Created At: " + product.getCreatedAt());
-            System.out.println("Updated At: " + product.getUpdatedAt());
-            System.out.println("--------------------------------");
-        }
 
         return Optional.of(products);
     }

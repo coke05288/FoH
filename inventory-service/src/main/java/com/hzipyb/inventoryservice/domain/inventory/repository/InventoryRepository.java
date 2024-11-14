@@ -13,13 +13,13 @@ public class InventoryRepository{
     private final DynamoDbTable<Inventory> inventoryDynamoDbTable;
 
     // READ : 재고 상세 조회
-    public Optional<Inventory> getInventoryById(String productId){
+    public Optional<Inventory> getInventoryById(Long productId){
 
         String partitionPrefix = "INVENTORY#";
         String sortPrefix = "PRODUCT#";
 
-        String partitionKey = partitionPrefix + "INV" + productId;
-        String sortKey = sortPrefix + "PROD" + productId;
+        String partitionKey = partitionPrefix + productId.toString();
+        String sortKey = sortPrefix + productId.toString();
 
         Inventory inventory = inventoryDynamoDbTable.getItem(r -> r.key(k ->
                 k.partitionValue(partitionKey)

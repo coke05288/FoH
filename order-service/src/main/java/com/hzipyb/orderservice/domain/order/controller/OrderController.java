@@ -1,30 +1,36 @@
 package com.hzipyb.orderservice.domain.order.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.hzipyb.orderservice.domain.order.dto.OrderRequestDTO;
+import com.hzipyb.orderservice.domain.order.entity.Order;
 import com.hzipyb.orderservice.domain.order.service.OrderService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
+@RequestMapping("/order")
 @RequiredArgsConstructor
-@Configuration
+@RestController
 public class OrderController {
 
     private final OrderService orderService;
 
-    @PostMapping("/order")
-    public void orderProductsById(
-            @RequestBody OrderRequestDTO orderRequestDTO){
+    @GetMapping("/{orderId}")
+    public ResponseEntity<Order> orderProductsById(
+            @PathVariable Long orderId){
 
+        Order order = orderService.getOrder(orderId);
 
-//        productService.orderProductById(id);
-//
-//        if(isSuccess){
-//            return ResponseEntity.ok("Order Success for product: " + id);
-//        }else{
-//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Order failed or insufficient stock.");
-//        }
+        return ResponseEntity.ok(order);
+    }
+
+    @PostMapping("/create")
+    public ResponseEntity<Order> orderProductsById(
+            @RequestBody OrderRequestDTO orderRequestDTO) throws JsonProcessingException {
+
+        Order order = orderService.createOrder(orderRequestDTO.getUserId(), orderRequestDTO.getProductOrders());
+
+        return ResponseEntity.ok(order);
     }
 
 }

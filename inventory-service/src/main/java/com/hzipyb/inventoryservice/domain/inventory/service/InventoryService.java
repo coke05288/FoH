@@ -15,13 +15,13 @@ public class InventoryService {
 
     private final InventoryRepository inventoryRepository;
 
-    public InventoryDTO getInventoryById(String productId){
+    public InventoryDTO getInventoryById(Long productId){
         return inventoryRepository.getInventoryById(productId)
                 .map(this::convertToInventoryDTO)
                 .orElseThrow(() -> new InventoryNotFoundException("Item not found with ID: " + productId));
     }
 
-    public InventoryDTO updateInventoryByProductId(String productId, Integer changeQuantity, String currentEvent){
+    public InventoryDTO updateInventoryByProductId(Long productId, Integer changeQuantity, String currentEvent){
         Inventory inventory = inventoryRepository.getInventoryById(productId)
                 .orElseThrow(() -> new InventoryNotFoundException("Item not found for productId"));
 
@@ -40,12 +40,12 @@ public class InventoryService {
 
 
     private InventoryDTO convertToInventoryDTO(Inventory inventory){
-        String pkPrefix = "INVENTORY#INV";
-        String skPrefix = "PRODUCT#PROD";
+        String pkPrefix = "INVENTORY#";
+        String skPrefix = "PRODUCT#";
 
         return InventoryDTO.builder()
-                .inventoryId(inventory.getPK().replaceFirst(pkPrefix, ""))
-                .productId(inventory.getSK().replaceFirst(skPrefix, ""))
+                .inventoryId(Long.parseLong(inventory.getPK().replaceFirst(pkPrefix, "")))
+                .productId(Long.parseLong(inventory.getSK().replaceFirst(skPrefix, "")))
                 .name(inventory.getName())
                 .stockQuantity(inventory.getStockQuantity())
                 .changeQuantity(inventory.getChangeQuantity())

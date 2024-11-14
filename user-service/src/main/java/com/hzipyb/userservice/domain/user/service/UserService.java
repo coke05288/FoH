@@ -22,10 +22,11 @@ public class UserService {
 
     public User createUser(String name, String email, Integer age, String password){
         User newUser = new User();
+
         newUser.setName(name);
         newUser.setEmail(email);
         newUser.setAge(age);
-        newUser.setPasswordHash(passwordEncoder.encode(password));
+        newUser.setPassword(passwordEncoder.encode(password));
 
         return userRepository.save(newUser);
     }
@@ -56,8 +57,8 @@ public class UserService {
     public void changePassword(Long userId, String oldPassword, String newPassword) {
         User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
 
-        if (passwordEncoder.matches(oldPassword, user.getPasswordHash())) {
-            user.setPasswordHash(passwordEncoder.encode(newPassword));
+        if (passwordEncoder.matches(oldPassword, user.getPassword())) {
+            user.setPassword(passwordEncoder.encode(newPassword));
             userRepository.save(user);
         } else {
             throw new IllegalArgumentException("Invalid old password");

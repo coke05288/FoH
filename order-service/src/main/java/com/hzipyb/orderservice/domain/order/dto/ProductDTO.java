@@ -1,4 +1,4 @@
-package com.hzipyb.productservice.domain.product.dto;
+package com.hzipyb.orderservice.domain.order.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,13 +9,13 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class InventoryDTO {
-    private Long inventoryId;
+public class ProductDTO {
     private Long productId;
-
+    private Long categoryId;
     private String name;
+    private String description;
+    private Integer price;
     private Integer stockQuantity;
-    private Integer changeQuantity;
-    private String currentEvent;
+    private String createdAt;
     private String updatedAt;
 }

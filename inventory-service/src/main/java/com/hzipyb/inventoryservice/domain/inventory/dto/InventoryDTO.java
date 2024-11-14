@@ -10,8 +10,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class InventoryDTO {
-    private String inventoryId;
-    private String productId;
+    private Long inventoryId;
+    private Long productId;
 
     private String name;
     private Integer stockQuantity;

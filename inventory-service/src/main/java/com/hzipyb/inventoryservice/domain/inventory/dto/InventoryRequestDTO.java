@@ -6,7 +6,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class InventoryRequestDTO {
-    private String productId;
+    private Long productId;
     private Integer changeQuantity;
     private String currentEvent;
 }

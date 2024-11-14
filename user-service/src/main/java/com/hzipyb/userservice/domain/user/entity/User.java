@@ -28,9 +28,9 @@ public class User {
     @Column(name = "age", nullable = false)
     private Integer age;
 
-    @Column(name = "password_hash", nullable = false, length = 255)
+    @Column(name = "password", nullable = false, length = 255)
     @JsonIgnore
-    private String passwordHash;
+    private String password;
 
     @Column(name = "created_at", nullable = false, columnDefinition = "DATETIME DEFAULT CURRENT_TIMESTAMP")
     @CreationTimestamp

@@ -1,7 +1,6 @@
 package com.hzipyb.productservice.domain.product.controller;
 
 import com.hzipyb.productservice.domain.product.dto.ProductDetailDTO;
-import com.hzipyb.productservice.domain.product.exception.ProductNotFoundException;
 import com.hzipyb.productservice.domain.product.service.ProductService;
 import com.hzipyb.productservice.logging.CustomLogger;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +19,7 @@ public class ProductController {
 
     @GetMapping("/{productId}")
     public ResponseEntity<ProductDetailDTO> getProductById(
-            @PathVariable String productId){
+            @PathVariable Long productId){
 
         ProductDetailDTO productDetailDTO = productService.getProductById(productId);
 
@@ -29,7 +28,7 @@ public class ProductController {
 
     @GetMapping("/list")
     public ResponseEntity<List<ProductDetailDTO>> getProductsByCategoryId(
-            @RequestParam(value = "categoryId") String categoryId,
+            @RequestParam(value = "categoryId") Long categoryId,
             @RequestParam(value = "isSoldOutView", defaultValue = "false") boolean isSoldOutView){
 
         List<ProductDetailDTO> products = productService.getProductsByCategoryId(categoryId, isSoldOutView);

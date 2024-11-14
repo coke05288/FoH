@@ -17,7 +17,7 @@ public class InventoryController {
 
     @GetMapping("/product/{productId}")
     public ResponseEntity<InventoryDTO> getInventoryByProductId(
-            @PathVariable String productId){
+            @PathVariable Long productId){
 
         InventoryDTO inventoryDTO = inventoryService.getInventoryById(productId);
 
@@ -26,7 +26,7 @@ public class InventoryController {
 
     @PutMapping("/product/{productId}")
     public ResponseEntity<InventoryDTO> updateInventoryByProductId(
-            @PathVariable String productId,
+            @PathVariable Long productId,
             @RequestBody InventoryRequestDTO inventoryRequestDTO){
         try {
             InventoryDTO inventoryDTO = inventoryService.updateInventoryByProductId(productId, inventoryRequestDTO.getChangeQuantity(), inventoryRequestDTO.getCurrentEvent());

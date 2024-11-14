@@ -23,7 +23,7 @@ public class JWTService {
     private String secretKey;
 
     public String generateToken(User existingUser, String requestPassword){
-        if(!passwordEncoder.matches(requestPassword, existingUser.getPasswordHash())){
+        if(!passwordEncoder.matches(requestPassword, existingUser.getPassword())){
             throw new IllegalArgumentException("Invalid credentials");
         }
 
