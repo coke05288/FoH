@@ -1,0 +1,15 @@
+server.port: 8101
+spring.application.name: product-service
+
+eureka:
+  instance:
+    hostname: ${EUREKA_INSTANCE_HOSTNAME}
+  client:
+    service-url:
+      defaultZone: http://${EUREKA_SERVER_HOSTNAME}:${EUREKA_SERVER_PORT}/eureka/
+    registerWithEureka: true
+    fetchRegistry: true
+
+
+inventory.service.url: http://${GATEWAY_INSTANCE_HOSTNAME}:${GATEWAY_SERVER_PORT}/api/v1/inventory
+gateway.service.url: http://${GATEWAY_INSTANCE_HOSTNAME}:${GATEWAY_SERVER_PORT}

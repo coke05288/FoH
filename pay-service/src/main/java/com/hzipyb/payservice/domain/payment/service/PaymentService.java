@@ -10,8 +10,6 @@ import com.hzipyb.payservice.domain.payment.repository.PaymentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import static com.hzipyb.payservice.domain.payment.entity.PaymentMethod.CREDIT_CARD;
-
 @RequiredArgsConstructor
 @Service
 public class PaymentService {

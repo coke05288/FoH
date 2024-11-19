@@ -1,16 +1,16 @@
-server.port: 7000
+server.port: ${EUREKA_SERVER_PORT}
 spring.application.name: eureka-service
 
 eureka:
   instance:
-    hostname: localhost
+    hostname: ${EUREKA_SERVER_HOSTNAME}
     registry:
       default-open-for-traffic-count: 1
   client:
     register-with-eureka: false
     fetch-registry: false
     service-url:
-      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+      defaultZone: http://${EUREKA_SERVER_HOSTNAME}:${EUREKA_SERVER_PORT}/eureka/
     region: default
   server:
     enable-self-preservation: true

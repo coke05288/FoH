@@ -9,5 +9,5 @@ eureka:
     fetchRegistry: true
 
 
-inventory.service.url: "http://localhost:8080/api/v1/inventory"
 gateway.service.url: "http://localhost:8080"
+inventory.service.url: "${gateway.service.url}/api/v1/inventory"

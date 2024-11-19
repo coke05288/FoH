@@ -27,8 +27,10 @@ spring:
       schema-locations: classpath:sql/schema-h2.sql
 
 eureka:
+  instance:
+    hostname: ${EUREKA_INSTANCE_HOSTNAME}
   client:
     service-url:
-      defaultZone: http://localhost:7000/eureka/
+      defaultZone: http://${EUREKA_SERVER_HOSTNAME}:${EUREKA_SERVER_PORT}/eureka/
     registerWithEureka: true
     fetchRegistry: true

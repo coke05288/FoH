@@ -7,7 +7,9 @@ import com.hzipyb.inventoryservice.exception.InventoryNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
 
 @RequiredArgsConstructor
 @Service
@@ -32,6 +34,9 @@ public class InventoryService {
         inventory.setStockQuantity(inventory.getStockQuantity() + changeQuantity);
         inventory.setChangeQuantity(changeQuantity);
         inventory.setCurrentEvent(currentEvent);
+        String currentDateTime = LocalDateTime.now(ZoneOffset.UTC)
+                .format(DateTimeFormatter.ISO_INSTANT);
+        inventory.setUpdatedAt(currentDateTime);
 
         return inventoryRepository.updateInventory(inventory)
                 .map(this::convertToInventoryDTO)

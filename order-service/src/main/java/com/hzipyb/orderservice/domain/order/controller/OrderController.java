@@ -6,7 +6,6 @@ import com.hzipyb.orderservice.domain.order.dto.OrderRequestDTO;
 import com.hzipyb.orderservice.domain.order.entity.Order;
 import com.hzipyb.orderservice.domain.order.service.OrderService;
 import lombok.RequiredArgsConstructor;
-import org.apache.coyote.Response;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
