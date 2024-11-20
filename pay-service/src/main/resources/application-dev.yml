@@ -3,7 +3,7 @@ spring.application.name: pay-service
 
 spring:
   datasource:
-    url: jdbc:h2:mem:order-dev;DB_CLOSE_DELAY=-1
+    url: jdbc:h2:mem:pay-dev;DB_CLOSE_DELAY=-1
     driverClassName: org.h2.Driver
     username: sa
     password:
@@ -27,13 +27,13 @@ spring:
 
 eureka:
   instance:
-    hostname: ${EUREKA_INSTANCE_HOSTNAME}
+    hostname: ${EUREKA_INSTANCE_HOSTNAME:localhost}
   client:
     service-url:
-      defaultZone: http://${EUREKA_SERVER_HOSTNAME}:${EUREKA_SERVER_PORT}/eureka/
+      defaultZone: http://${EUREKA_SERVER_HOSTNAME:localhost}:${EUREKA_SERVER_PORT:7000}/eureka/
     registerWithEureka: true
     fetchRegistry: true
 
 
-gateway.service.url: http://${GATEWAY_INSTANCE_HOSTNAME}:${GATEWAY_SERVER_PORT}
+gateway.service.url: http://${GATEWAY_INSTANCE_HOSTNAME:localhost}:${GATEWAY_SERVER_PORT:8080}
 inventory.service.url: ${gateway.service.url}/api/v1/inventory

@@ -1,5 +1,4 @@
 spring:
   profiles.include:
-    - dev
-    - prod
     - env
+    - prod

@@ -43,6 +43,10 @@ dependencies {
     // AWS DynamoDB 의존성 추가
     implementation platform('software.amazon.awssdk:bom:2.20.85')
     implementation 'software.amazon.awssdk:dynamodb-enhanced'
+
+    // AWS SQS 의존성 추가
+    implementation platform("io.awspring.cloud:spring-cloud-aws-dependencies:3.0.1")
+    implementation 'io.awspring.cloud:spring-cloud-aws-starter-sqs'
 }
 
 dependencyManagement {

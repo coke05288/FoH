@@ -1,21 +1,12 @@
-DROP TABLE IF EXISTS orders, order_items;
+DROP TABLE IF EXISTS payments;
 
-CREATE TABLE orders
+CREATE TABLE payments
 (
-    id              BIGINT AUTO_INCREMENT PRIMARY KEY,
-    user_id         BIGINT NOT NULL,
-    status          VARCHAR(255) NOT NULL,
-    total_amount    INTEGER,
-    created_at      TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at      TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-);
-
-CREATE TABLE order_items
-(
-    id              BIGINT AUTO_INCREMENT PRIMARY KEY,
-    order_id        BIGINT NOT NULL,
-    product_id      BIGINT NOT NULL,
-    quantity        INT NOT NULL,
-    price           INTEGER NOT NULL,
-    FOREIGN KEY     (order_id) REFERENCES orders(id)
+    id               BIGINT AUTO_INCREMENT PRIMARY KEY,
+    order_id         BIGINT NOT NULL,
+    amount           DECIMAL(10,2) NOT NULL,
+    payment_method   VARCHAR(255) NOT NULL,
+    status           VARCHAR(255) NOT NULL,
+    created_at       TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at       TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );

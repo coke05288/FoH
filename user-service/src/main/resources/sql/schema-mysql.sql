@@ -1,5 +1,3 @@
-DROP TABLE IF EXISTS users, user_login_history;
-
 CREATE TABLE users
 (
     id              BIGINT AUTO_INCREMENT PRIMARY KEY,

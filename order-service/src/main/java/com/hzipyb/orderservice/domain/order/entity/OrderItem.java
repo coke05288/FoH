@@ -23,7 +23,7 @@ public class OrderItem {
     private Long productId;
 
     @Column(name = "quantity", nullable = false)
-    private int quantity;
+    private Integer quantity;
 
     @Column(name = "price", nullable = false)
     private Integer price;

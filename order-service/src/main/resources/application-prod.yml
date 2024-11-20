@@ -22,13 +22,13 @@ spring:
 
 eureka:
   instance:
-    hostname: ${EUREKA_INSTANCE_HOSTNAME}
+    hostname: ${EUREKA_INSTANCE_HOSTNAME:order-service}
   client:
     service-url:
-      defaultZone: http://${EUREKA_SERVER_HOSTNAME}:${EUREKA_SERVER_PORT}/eureka/
+      defaultZone: http://${EUREKA_SERVER_HOSTNAME:eureka-service}:${EUREKA_SERVER_PORT:7000}/eureka/
     registerWithEureka: true
     fetchRegistry: true
 
 
-gateway.service.url: http://${GATEWAY_INSTANCE_HOSTNAME}:${GATEWAY_SERVER_PORT}
+gateway.service.url: http://${GATEWAY_INSTANCE_HOSTNAME:gateway-service}:${GATEWAY_SERVER_PORT:8080}
 product.service.url: ${gateway.service.url}/api/v1/product
