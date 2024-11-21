@@ -6,6 +6,7 @@ CREATE TABLE users
     password        VARCHAR(255) NOT NULL,
     email           VARCHAR(255) NOT NULL UNIQUE,
     age             INTEGER NOT NULL,
+    gender          VARCHAR(20),
     name            VARCHAR(255),
     created_at      TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at      TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP

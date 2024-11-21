@@ -28,6 +28,9 @@ public class User {
     @Column(name = "age", nullable = false)
     private Integer age;
 
+    @Column(name = "gender", nullable = false)
+    private String gender;
+
     @Column(name = "password", nullable = false, length = 255)
     @JsonIgnore
     private String password;

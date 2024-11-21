@@ -26,7 +26,7 @@ public class UserController {
             @RequestBody UserDTO userDTO)
     {
         try{
-            User user = userService.createUser(userDTO.getName(), userDTO.getEmail(), userDTO.getAge(), userDTO.getPassword());
+            User user = userService.createUser(userDTO.getName(), userDTO.getEmail(), userDTO.getAge(), userDTO.getGender(), userDTO.getPassword());
             return ResponseEntity.ok(user);
         }catch (DuplicateUserException e){
             return ResponseEntity.status(HttpStatus.CONFLICT).body(null);

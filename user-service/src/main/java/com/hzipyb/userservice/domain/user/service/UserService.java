@@ -20,12 +20,13 @@ public class UserService {
     private final UserLoginHistoryRepository userLoginHistoryRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public User createUser(String name, String email, Integer age, String password){
+    public User createUser(String name, String email, Integer age, String gender, String password){
         User newUser = new User();
 
         newUser.setName(name);
         newUser.setEmail(email);
         newUser.setAge(age);
+        newUser.setGender(gender);
         newUser.setPassword(passwordEncoder.encode(password));
 
         return userRepository.save(newUser);
