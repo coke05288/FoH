@@ -25,11 +25,8 @@ COPY --from=build /app/build/libs/*.jar app.jar
 
 ENV SPRING_PROFILE="prod"
 ENV EUREKA_INSTANCE_HOSTNAME="inventory-service"
-ENV EUREKA_SERVER_HOSTNAME="eureka-service"
+ENV EUREKA_SERVER_HOSTNAME="hzipyb-foh-alb-553236548.ap-northeast-2.elb.amazonaws.com"
 ENV EUREKA_SERVER_PORT=7000
-ENV GATEWAY_INSTANCE_HOSTNAME="gateway-service"
-ENV GATEWAY_SERVER_PORT=8080
-
 EXPOSE 8104
 
 ENTRYPOINT ["java", "-Dspring.profiles.active=${SPRING_PROFILE}", "-jar", "app.jar"]

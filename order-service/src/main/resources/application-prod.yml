@@ -14,6 +14,7 @@ spring:
       ddl-auto: update
     properties:
       hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
         format_sql: true
         use_sql_comments: true
   sql:
@@ -23,12 +24,11 @@ spring:
 eureka:
   instance:
     hostname: ${EUREKA_INSTANCE_HOSTNAME:order-service}
+    prefer-ip-address: true
   client:
     service-url:
       defaultZone: http://${EUREKA_SERVER_HOSTNAME:eureka-service}:${EUREKA_SERVER_PORT:7000}/eureka/
     registerWithEureka: true
     fetchRegistry: true
 
-
-gateway.service.url: http://${GATEWAY_INSTANCE_HOSTNAME:gateway-service}:${GATEWAY_SERVER_PORT:8080}
-product.service.url: ${gateway.service.url}/api/v1/product
+product.service.url: http://${PRODUCT_INSTANCE_HOSTNAME:product-service}:${PRODUCT_SERVER_PORT:8101}

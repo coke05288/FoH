@@ -5,8 +5,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.Optional;
-
 @Component
 public class ProductClient {
 
@@ -20,7 +18,7 @@ public class ProductClient {
     }
 
     public ProductDTO getProductByProductId(Long productId){
-        String url = productServiceUrl + "/" + productId;
+        String url = productServiceUrl + "/product/" + productId;
 
         return restTemplate.getForObject(url, ProductDTO.class);
     }

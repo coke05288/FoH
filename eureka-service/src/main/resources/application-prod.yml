@@ -4,6 +4,7 @@ spring.application.name: eureka-service
 eureka:
   instance:
     hostname: ${EUREKA_SERVER_HOSTNAME:eureka-service}
+    prefer-ip-address: true
     registry:
       default-open-for-traffic-count: 1
   client:

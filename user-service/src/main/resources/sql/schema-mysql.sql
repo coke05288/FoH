@@ -1,4 +1,4 @@
-CREATE TABLE users
+CREATE TABLE IF NOT EXISTS users
 (
     id              BIGINT AUTO_INCREMENT PRIMARY KEY,
     password        VARCHAR(255) NOT NULL,
@@ -9,7 +9,7 @@ CREATE TABLE users
     updated_at      TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
-CREATE TABLE user_login_history
+CREATE TABLE IF NOT EXISTS user_login_history
 (
     id              BIGINT AUTO_INCREMENT PRIMARY KEY,
     user_id         BIGINT NOT NULL,

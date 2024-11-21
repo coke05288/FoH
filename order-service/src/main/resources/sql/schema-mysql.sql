@@ -1,4 +1,4 @@
-CREATE TABLE orders
+CREATE TABLE IF NOT EXISTS orders
 (
     id              BIGINT AUTO_INCREMENT PRIMARY KEY,
     user_id         BIGINT NOT NULL,
@@ -8,7 +8,7 @@ CREATE TABLE orders
     updated_at      TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
-CREATE TABLE order_items
+CREATE TABLE IF NOT EXISTS order_items
 (
     id              BIGINT AUTO_INCREMENT PRIMARY KEY,
     order_id        BIGINT NOT NULL,
