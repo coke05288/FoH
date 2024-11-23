@@ -18,7 +18,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -52,10 +55,55 @@ public class OrderService {
                 .sum()
         );
 
+        // null 체크 후 예외 처리
+        if (newOrder.getTotalAmount() == 0 || newOrder.getTotalAmount() == null) {
+            newOrder.setTotalAmount(0);
+        }
+
         ObjectMapper jsonMapper = new ObjectMapper();
         jsonMapper.registerModule(new JavaTimeModule());
         String message = jsonMapper.writeValueAsString(newOrder);
         sqsMessageSender.sendMessage(message);
+
+        return orderRepository.save(newOrder);
+    }
+
+    public Order createOrderDummy(Long userId, String date, List<ProductOrderDTO> productOrders) throws JsonProcessingException {
+        Order newOrder = new Order();
+
+        newOrder.setUserId(userId);
+
+        OrderStatus[] statuses = OrderStatus.values();
+        Random random = new Random();
+        OrderStatus randomStatus = statuses[random.nextInt(statuses.length)];
+        newOrder.setStatus(randomStatus);
+
+        newOrder = orderRepository.save(newOrder);
+
+        List<OrderItem> orderItems = createOrderItems(newOrder, productOrders);
+        newOrder.setOrderItems(orderItems);
+
+        newOrder.setTotalAmount(orderItems.stream()
+                .mapToInt(orderItem -> orderItem.getPrice() * orderItem.getQuantity())
+                .sum()
+        );
+
+        // null 체크 후 예외 처리
+        if (newOrder.getTotalAmount() == 0 || newOrder.getTotalAmount() == null) {
+            newOrder.setTotalAmount(0);
+        }
+
+        // ObjectMapper jsonMapper = new ObjectMapper();
+        // jsonMapper.registerModule(new JavaTimeModule());
+        // String message = jsonMapper.writeValueAsString(newOrder);
+        // sqsMessageSender.sendMessage(message);
+
+        // date = "2024.11.21 00:00:00"
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm:ss");
+        LocalDateTime formattedDate = LocalDateTime.parse(date, formatter);
+
+        newOrder.setCreatedAt(formattedDate);
+        newOrder.setUpdatedAt(formattedDate);
 
         return orderRepository.save(newOrder);
     }

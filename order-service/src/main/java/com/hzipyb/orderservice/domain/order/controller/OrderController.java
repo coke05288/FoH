@@ -3,6 +3,7 @@ package com.hzipyb.orderservice.domain.order.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.hzipyb.orderservice.domain.order.dto.OrderChangeDTO;
 import com.hzipyb.orderservice.domain.order.dto.OrderRequestDTO;
+import com.hzipyb.orderservice.domain.order.dto.OrderRequestDummyDTO;
 import com.hzipyb.orderservice.domain.order.entity.Order;
 import com.hzipyb.orderservice.domain.order.service.OrderService;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +22,15 @@ public class OrderController {
             @RequestBody OrderRequestDTO orderRequestDTO) throws JsonProcessingException {
 
         Order order = orderService.createOrder(orderRequestDTO.getUserId(), orderRequestDTO.getProductOrders());
+
+        return ResponseEntity.ok(order);
+    }
+
+    @PostMapping("/create/dummy")
+    public ResponseEntity<Order> createOrderDummy(
+            @RequestBody OrderRequestDummyDTO orderRequestDummyDTO) throws JsonProcessingException {
+
+        Order order = orderService.createOrderDummy(orderRequestDummyDTO.getUserId(), orderRequestDummyDTO.getDate(), orderRequestDummyDTO.getProductOrders());
 
         return ResponseEntity.ok(order);
     }
