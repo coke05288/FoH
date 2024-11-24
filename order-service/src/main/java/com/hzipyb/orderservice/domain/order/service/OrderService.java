@@ -105,7 +105,7 @@ public class OrderService {
         newOrder.setCreatedAt(formattedDate);
         newOrder.setUpdatedAt(formattedDate);
 
-        return orderRepository.save(newOrder);
+        return orderRepository.saveAndFlush(newOrder);
     }
 
     public List<OrderItem> createOrderItems(Order order, List<ProductOrderDTO> productOrders){

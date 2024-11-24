@@ -43,13 +43,15 @@ public class UserService {
         newUser.setGender(gender);
         newUser.setPassword(passwordEncoder.encode(password));
 
+        newUser = userRepository.saveAndFlush(newUser);
+        // date = "2024.11.21 00:00:00"
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm:ss");
         LocalDateTime formattedDate = LocalDateTime.parse(date, formatter);
 
         newUser.setCreatedAt(formattedDate);
         newUser.setUpdatedAt(formattedDate);
 
-        return userRepository.save(newUser);
+        return userRepository.saveAndFlush(newUser);
     }
 
     public Optional<User> getUserById(Long userId){
