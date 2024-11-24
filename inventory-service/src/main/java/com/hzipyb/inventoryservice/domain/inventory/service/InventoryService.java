@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
@@ -35,7 +36,7 @@ public class InventoryService {
         inventory.setChangeQuantity(changeQuantity);
         inventory.setCurrentEvent(currentEvent);
         String currentDateTime = LocalDateTime.now(ZoneOffset.UTC)
-                .format(DateTimeFormatter.ISO_INSTANT);
+                .format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"));
         inventory.setUpdatedAt(currentDateTime);
 
         return inventoryRepository.updateInventory(inventory)

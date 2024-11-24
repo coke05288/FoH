@@ -31,6 +31,7 @@ public class InventoryRepository{
     // Update : 재고 변동 업데이트
     public Optional<Inventory> updateInventory(Inventory inventory){
 
+        System.out.println("@@ In Put Repository");
         inventoryDynamoDbTable.putItem(inventory);
 
         Inventory resultInventory = inventoryDynamoDbTable.getItem(r -> r.key(k ->

@@ -9,7 +9,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,6 +30,24 @@ public class UserService {
         newUser.setAge(age);
         newUser.setGender(gender);
         newUser.setPassword(passwordEncoder.encode(password));
+
+        return userRepository.save(newUser);
+    }
+
+    public User createUserDummy(String name, String email, Integer age, String gender, String password, String date){
+        User newUser = new User();
+
+        newUser.setName(name);
+        newUser.setEmail(email);
+        newUser.setAge(age);
+        newUser.setGender(gender);
+        newUser.setPassword(passwordEncoder.encode(password));
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm:ss");
+        LocalDateTime formattedDate = LocalDateTime.parse(date, formatter);
+
+        newUser.setCreatedAt(formattedDate);
+        newUser.setUpdatedAt(formattedDate);
 
         return userRepository.save(newUser);
     }

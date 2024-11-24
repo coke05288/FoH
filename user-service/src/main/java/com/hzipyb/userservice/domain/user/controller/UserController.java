@@ -2,6 +2,7 @@ package com.hzipyb.userservice.domain.user.controller;
 
 import com.hzipyb.userservice.domain.user.dto.PasswordChangeDTO;
 import com.hzipyb.userservice.domain.user.dto.UserDTO;
+import com.hzipyb.userservice.domain.user.dto.UserDummyDTO;
 import com.hzipyb.userservice.domain.user.entity.User;
 import com.hzipyb.userservice.domain.user.entity.UserLoginHistory;
 import com.hzipyb.userservice.domain.user.exception.DuplicateUserException;
@@ -27,6 +28,18 @@ public class UserController {
     {
         try{
             User user = userService.createUser(userDTO.getName(), userDTO.getEmail(), userDTO.getAge(), userDTO.getGender(), userDTO.getPassword());
+            return ResponseEntity.ok(user);
+        }catch (DuplicateUserException e){
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(null);
+        }
+    }
+
+    @PostMapping("/signup/dummy")
+    public ResponseEntity<User> createUserDummy(
+            @RequestBody UserDummyDTO userDummyDTO)
+    {
+        try{
+            User user = userService.createUserDummy(userDummyDTO.getName(), userDummyDTO.getEmail(), userDummyDTO.getAge(), userDummyDTO.getGender(), userDummyDTO.getPassword(), userDummyDTO.getDate());
             return ResponseEntity.ok(user);
         }catch (DuplicateUserException e){
             return ResponseEntity.status(HttpStatus.CONFLICT).body(null);
