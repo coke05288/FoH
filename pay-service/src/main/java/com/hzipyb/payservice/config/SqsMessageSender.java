@@ -11,7 +11,7 @@ public class SqsMessageSender {
 
     private final SqsTemplate queueMessagingTemplate;
 
-    @Value("${cloud.aws.sqs.queue.name}")
+    @Value("${cloud.aws.sqs.queue.sender-name}")
     private String QUEUE_NAME;
 
     public SqsMessageSender(SqsAsyncClient sqsAsyncClient){

@@ -4,6 +4,7 @@ import com.hzipyb.inventoryservice.domain.inventory.dto.InventoryDTO;
 import com.hzipyb.inventoryservice.domain.inventory.entity.Inventory;
 import com.hzipyb.inventoryservice.domain.inventory.repository.InventoryRepository;
 import com.hzipyb.inventoryservice.exception.InventoryNotFoundException;
+import com.hzipyb.inventoryservice.exception.InventorySoldOutException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -29,14 +30,14 @@ public class InventoryService {
                 .orElseThrow(() -> new InventoryNotFoundException("Item not found for productId"));
 
         if(inventory.getStockQuantity() <= 0){
-            throw new RuntimeException("품절");
+            throw new InventorySoldOutException("SoldOut");
         }
 
         inventory.setStockQuantity(inventory.getStockQuantity() + changeQuantity);
         inventory.setChangeQuantity(changeQuantity);
         inventory.setCurrentEvent(currentEvent);
         String currentDateTime = LocalDateTime.now(ZoneOffset.UTC)
-                .format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"));
+                .format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss"));
         inventory.setUpdatedAt(currentDateTime);
 
         return inventoryRepository.updateInventory(inventory)

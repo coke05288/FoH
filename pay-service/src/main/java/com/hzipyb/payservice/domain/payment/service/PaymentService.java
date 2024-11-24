@@ -1,5 +1,8 @@
 package com.hzipyb.payservice.domain.payment.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.hzipyb.payservice.config.SqsMessageSender;
 import com.hzipyb.payservice.domain.payment.dto.PaymentChangeDTO;
 import com.hzipyb.payservice.domain.payment.dto.PaymentRequestDTO;
 import com.hzipyb.payservice.domain.payment.entity.Payment;
@@ -14,6 +17,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class PaymentService {
     private final PaymentRepository paymentRepository;
+    private final SqsMessageSender messageSender;
 
     public Payment getPaymentById(Long paymentId){
         return paymentRepository.findById(paymentId)
@@ -26,9 +30,13 @@ public class PaymentService {
         newPayment.setOrderId(paymentRequestDTO.getOrder().getId());
         newPayment.setAmount(paymentRequestDTO.getOrder().getTotalAmount());
         newPayment.setPaymentMethod(PaymentMethod.valueOf(paymentRequestDTO.getPaymentMethod()));
-        newPayment.setPaymentStatus(PaymentStatus.PENDING);
+        newPayment.setPaymentStatus(PaymentStatus.COMPLETED);
 
-        return paymentRepository.save(newPayment);
+        newPayment = paymentRepository.save(newPayment);
+
+        messageSender.sendMessage(newPayment.getOrderId().toString());
+
+        return newPayment;
     }
 
     public Payment updatePaymentById(Long paymentId, PaymentChangeDTO paymentChangeDTO){

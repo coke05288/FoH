@@ -62,8 +62,8 @@ public class OrderService {
 
         ObjectMapper jsonMapper = new ObjectMapper();
         jsonMapper.registerModule(new JavaTimeModule());
-        String message = jsonMapper.writeValueAsString(newOrder);
-        sqsMessageSender.sendMessage(message);
+        String toInventoryMessage = jsonMapper.writeValueAsString(newOrder);
+        sqsMessageSender.sendMessage(toInventoryMessage);
 
         return orderRepository.save(newOrder);
     }

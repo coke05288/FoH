@@ -20,6 +20,7 @@ public class ProductClient {
     public ProductDTO getProductByProductId(Long productId){
         String url = productServiceUrl + "/product/" + productId;
 
+        System.out.println(url);
         return restTemplate.getForObject(url, ProductDTO.class);
     }
 }
